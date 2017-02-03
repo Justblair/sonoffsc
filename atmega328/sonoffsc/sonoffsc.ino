@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DHT_PIN                 6
 #ifndef DHT_TYPE
 // Uncomment the sensor type that you have (comment the other if applicable)
-#define DHT_TYPE                DHT11
-//#define DHT_TYPE                DHT22
+//#define DHT_TYPE                DHT11
+#define DHT_TYPE                DHT22
 #endif
 
 #define RGB_PIN					11
@@ -240,6 +240,11 @@ void clapDecode() {
         }
 
         link.send_P(at_code, code);
+		if (code == 2) {
+			rgbExec = true;			// Set the Exec flag to on
+			colorR = colorB = colorG = 0;
+			rgbEffect = RGB_WIPE;	// Set the Animation type
+		}
 
     }
 
@@ -580,7 +585,7 @@ void setup() {
 
 	// Neopixel setup and start animation
 	strip.begin();
-	strip.setBrightness(30); //adjust brightness here
+	strip.setBrightness(200); //adjust brightness here
 	strip.show(); // Initialize all pixels to 'off'
 }
 

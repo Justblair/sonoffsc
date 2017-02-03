@@ -19,9 +19,10 @@ const PROGMEM char at_light[] = "AT+LIGHT";
 const PROGMEM char at_clap[] = "AT+CLAP";
 const PROGMEM char at_code[] = "AT+CODE";
 const PROGMEM char at_thld[] = "AT+THLD";
-const PROGMEM char at_r[] = "AT+R";
+const PROGMEM char at_r[]= "AT+R";
 const PROGMEM char at_g[] = "AT+G";
 const PROGMEM char at_b[] = "AT+B";
+const PROGMEM char at_dur[] = "AT+DUR";
 const PROGMEM char at_effect[] = "AT+EFFECT";
 const PROGMEM char at_rgb_exec[] = "AT+RGBEXEC";
 
@@ -134,11 +135,34 @@ void commsLoop() {
     link.handle();
 }
 
-// Function to send AT commands that set rgb colors.
-void commSendRGB(int r, int g, int b) {
-
+// Function to send AT commands that set effect and rgb colors.
+void commSendRGB(int effect, int r, int g, int b) {
+	link.send_P(at_effect, effect);			// Send the effect type
 	link.send_P(at_r, r);			// Send red value
 	link.send_P(at_g, g);			// Send blue value
 	link.send_P(at_b, b);			// Send green value
+	link.send_P(at_rgb_exec, 1);	// Send execute instruction
+}
+
+// Overloaded to send effect, rgb colors and duration
+void commSendRGB(int effect, int r, int g, int b, int duration) {
+	link.send_P(at_effect, effect);			// Send the effect type
+	link.send_P(at_r, r);			// Send red value
+	link.send_P(at_g, g);			// Send blue value
+	link.send_P(at_b, b);			// Send green value
+	link.send_P(at_dur, duration);	// Send the duration in millis
+	link.send_P(at_rgb_exec, 1);	// Send execute instruction
+}
+
+// Overloaded to send effect and duration
+void commSendRGB(int effect, int duration) {
+	link.send_P(at_effect, effect);	// Send the effect type
+	link.send_P(at_dur, duration);	// Send the duration in millis
+	link.send_P(at_rgb_exec, 1);	// Send execute instruction
+}
+
+// Overloaded to send effect  
+void commSendRGB(int effect) {
+	link.send_P(at_effect, effect);	// Send the effect type
 	link.send_P(at_rgb_exec, 1);	// Send execute instruction
 }

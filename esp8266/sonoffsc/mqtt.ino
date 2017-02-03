@@ -184,7 +184,6 @@ void mqttCallback(unsigned int type, const char * topic, const char * payload) {
 	// When connected, subscribe to the topic
 	if (type == MQTT_CONNECT_EVENT) {
 		mqttSubscribe(MQTT_RGB_TOPIC);
-		// Feel I should be using mqttSubscribe here... 
 	}
 
 	// 
