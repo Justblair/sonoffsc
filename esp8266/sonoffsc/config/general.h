@@ -49,7 +49,7 @@
 #define MQTT_DISCONNECT_EVENT   1
 #define MQTT_MESSAGE_EVENT      2
 
-#define MQTT_TOPIC              "/test/sonoffsc"
+#define MQTT_TOPIC              "/sonoffsc"
 
 #define MQTT_IP_TOPIC           "/ip"
 #define MQTT_VERSION_TOPIC      "/version"
